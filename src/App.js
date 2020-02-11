@@ -106,8 +106,6 @@ function App() {
   }
 
   const step = (player) => {
-
-
     if (player === 'one' && (!playerOne.length || playerOne.length < playerTwo.length)) {
       comparisonOne()
     } else if (player === 'two' && (!playerTwo.length || playerOne.length > playerTwo.length)) {
@@ -140,44 +138,6 @@ function App() {
         <section className={cls.panel}>
           <PlayerOne p1={playerNameOne} u1={userOne} setP1={setPlayerNameOne} closeI1={closeInputOne} setCloseI1={setCloseInputOne} step={step} />
           <PlayerTwo p2={playerNameTwo} u2={userTwo} setP2={setPlayerNameTwo} closeI2={closeInputTwo} setCloseI2={setCloseInputTwo} step={step} />
-            {/* <section className={cls.player}>
-            <span className={cls.player__userName}>
-              <h3>{playerNameOne}</h3>
-              {!closeInputOne && (
-                <div>
-                  <input onChange={(e) => setPlayerNameOne(e.target.value)}></input>
-                  <button onClick={() => setCloseInputOne(true)}>+</button>
-                </div>
-              )}
-            </span>
-            <div className={cls.player__card}>
-              <span className={cls.player__card__countLeft}>{userOne.length}</span>
-              <img src={card} alt='card' />
-              {userOne.map(() => {
-                return <img className={cls.player__deckLeft} src={card} alt='card' />
-              })}
-            </div>
-            <button onClick={() => step('one')}>Ваш ход</button>
-          </section> */}
-          {/* <section className={cls.player}>
-            <span className={cls.player__userName}>
-            <h3>{playerNameTwo}</h3>
-            {!closeInputTwo && (
-              <div>
-                <input onChange={(e) => setPlayerNameTwo(e.target.value)}></input>
-                <button onClick={() => setCloseInputTwo(true)}>+</button>
-              </div>
-            )}
-          </span>
-          <div className={cls.player__card}>
-            <span className={cls.player__card__countRight}>{userTwo.length}</span>
-            <img src={card} alt='card' />
-            {userTwo.map(() => {
-              return <img className={cls.player__deckRight} src={card} alt='card' />
-            })}
-          </div>
-          <button onClick={() => step('two')}>Ваш ход</button>
-        </section> */}
         </section>
       <section className={cls.board}>
         <section className={cls.cardsBlock}>
@@ -194,7 +154,7 @@ function App() {
     </footer>
     <div className={modal ? `${cls.modal} ${cls.close}` : cls.modal}>
       <div className={cls.modal__wrapper}>
-        <span>Победил - {userTwo.length === 0 ? 'Игрок 1' : 'Игрок 2'}</span>
+        <span>Победил - {userTwo.length === 0 ? playerNameOne : playerNameTwo}</span>
         <button onClick={() => setModal(false)}>+</button>
       </div>
     </div>

@@ -13,7 +13,6 @@ const CurrentDeckPlayerOne = ({
   setU2,
   setP1,
   setP2,
-  toggle
 }) => {
 
   useEffect(() => {
