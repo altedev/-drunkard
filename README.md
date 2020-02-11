@@ -6,7 +6,7 @@
 
 ```sh
 $ cd card-game
-$ npm install i
+$ npm install
 $ npm start
 ```
 
