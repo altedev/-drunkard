@@ -5,7 +5,7 @@
 ## Для запуска выполните:
 
 ```sh
-$ cd card-game
+$ cd drunkard
 $ npm install
 $ npm start
 ```
