@@ -10,6 +10,4 @@ $ npm install i
 $ npm start
 ```
 
-### [Demo](https://altedev.github.io/) 
-
 😎
