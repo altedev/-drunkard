@@ -1,0 +1,49 @@
+$mainBackground: #272b34;
+$mainColor: white;
+$backgroundButton: #61dafb;
+$colorButton: #161616;
+
+// mixins
+@mixin button {
+  padding: 5px 15px;
+  border-radius: 8px;
+  background: $backgroundButton;
+  color: $colorButton;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  margin: 15px 0;
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
+  &:hover {
+    background: darken($backgroundButton, 50%);
+    color: $mainColor;
+  }
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid $mainColor;
+  }
+}
+
+@mixin countCard {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  background: $backgroundButton;
+  border-radius: 50%;
+  padding: 5px;
+  color: $colorButton;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
