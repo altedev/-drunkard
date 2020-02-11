@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import cls from './App.module.scss'
-import card from './images/deck.svg'
+import CurrentDeckPlayerOne from './components/CurrentDeckPlayerOne';
+import CurrentDeckPlayerTwo from './components/CurrentDeckPlayerTwo';
+import PlayerOne from './components/PlayerOne';
+import PlayerTwo from './components/PlayerTwo';
 
 function App() {
 
@@ -56,8 +59,6 @@ function App() {
     ],
     suits: ['clubs', 'diamonds', 'hearts', 'spades']
   }
-
-  // const Context = useContext(state)
 
   const deck = () => {
     const newDeck = []
@@ -122,46 +123,8 @@ function App() {
 
   useEffect(() => {
     deck()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    if (playerTwo.length && playerOne.length) {
-      const oneLength = playerOne.length - 1
-      const twoLength = playerTwo.length - 1
-      let newUserOne = [...userOne]
-      let newUserTwo = [...userTwo]
-      let flagTimeOut = false
-      if (playerTwo.length % 2 === 0 || playerOne.length % 2 === 0) {
-        flagTimeOut = false
-      } else
-        if (playerTwo[twoLength].value > playerOne[oneLength].value || (playerTwo[twoLength].value === 1 && playerOne[oneLength].value === 9)) {
-          newUserTwo = newUserTwo.concat(playerOne)
-          newUserTwo = newUserTwo.concat(playerTwo)
-
-          setUserTwo(newUserTwo)
-          flagTimeOut = true
-        } else if (playerTwo[twoLength].value < playerOne[oneLength].value || (playerOne[twoLength].value === 1 && playerTwo[oneLength].value === 9)) {
-          newUserOne = newUserOne.concat(playerOne)
-          newUserOne = newUserOne.concat(playerTwo)
-          setUserOne(newUserOne)
-          flagTimeOut = true
-        }
-        else if (playerTwo[twoLength].value === playerOne[oneLength].value) {
-          setTimeout(() => {
-            comparisonOne()
-            comparisonTwo()
-          }, 1000)
-        }
-      if (flagTimeOut) {
-        setTimeout(() => {
-          setPlayerOne([])
-          setPlayerTwo([])
-        }, 1000)
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerTwo, playerOne])
 
   useEffect(() => {
     if (flag && (userOne.length === 0 || userTwo.length === 0)) {
@@ -175,7 +138,9 @@ function App() {
       </header>
       <main className={cls.wrapper}>
         <section className={cls.panel}>
-          <section className={cls.player}>
+          <PlayerOne p1={playerNameOne} u1={userOne} setP1={setPlayerNameOne} closeI1={closeInputOne} setCloseI1={setCloseInputOne} step={step} />
+          <PlayerTwo p2={playerNameTwo} u2={userTwo} setP2={setPlayerNameTwo} closeI2={closeInputTwo} setCloseI2={setCloseInputTwo} step={step} />
+            {/* <section className={cls.player}>
             <span className={cls.player__userName}>
               <h3>{playerNameOne}</h3>
               {!closeInputOne && (
@@ -193,89 +158,47 @@ function App() {
               })}
             </div>
             <button onClick={() => step('one')}>Ваш ход</button>
-          </section>
-          <section className={cls.player}>
+          </section> */}
+          {/* <section className={cls.player}>
             <span className={cls.player__userName}>
-              <h3>{playerNameTwo}</h3>
-              {!closeInputTwo && (
-                <div>
-                  <input onChange={(e) => setPlayerNameTwo(e.target.value)}></input>
-                  <button onClick={() => setCloseInputTwo(true)}>+</button>
-                </div>
-              )}
-            </span>
-            <div className={cls.player__card}>
-              <span className={cls.player__card__countRight}>{userTwo.length}</span>
-              <img src={card} alt='card' />
-              {userTwo.map(() => {
-                return <img className={cls.player__deckRight} src={card} alt='card' />
-              })}
-            </div>
-            <button onClick={() => step('two')}>Ваш ход</button>
-          </section>
-        </section>
-        <section className={cls.board}>
-          <section className={cls.cardsBlock}>
-            {playerOne.length % 2 !== 0 && playerOne.length ? (<div className={cls.card}>
-              <div className={cls.card__top}>
-                {
-                  playerOne[playerOne.length - 1]?.suits === 'clubs' ? '♧'
-                    : playerOne[playerOne.length - 1]?.suits === 'diamonds' ? '♢'
-                      : playerOne[playerOne.length - 1]?.suits === 'hearts' ? '♡'
-                        : playerOne[playerOne.length - 1]?.suits === 'spades' ? '♤'
-                          : ''
-                }
+            <h3>{playerNameTwo}</h3>
+            {!closeInputTwo && (
+              <div>
+                <input onChange={(e) => setPlayerNameTwo(e.target.value)}></input>
+                <button onClick={() => setCloseInputTwo(true)}>+</button>
               </div>
-              <div className={cls.card__icon}>{playerOne[playerOne.length - 1]?.name}</div>
-              <div className={cls.card__bottom}>
-                {
-                  playerOne[playerOne.length - 1]?.suits === 'clubs' ? '♧'
-                    : playerOne[playerOne.length - 1]?.suits === 'diamonds' ? '♢'
-                      : playerOne[playerOne.length - 1]?.suits === 'hearts' ? '♡'
-                        : playerOne[playerOne.length - 1]?.suits === 'spades' ? '♤'
-                          : ''
-                }
-              </div>
-            </div>) : playerOne.length ? <img className={cls.illusion} src={card} alt='card' /> : <div className={cls.card} />}
-            {playerTwo.length % 2 !== 0 && playerTwo.length ? (
-              <div className={cls.card}>
-                <div className={cls.card__top}>
-                  {
-                    playerTwo[playerTwo.length - 1]?.suits === 'clubs' ? '♧'
-                      : playerTwo[playerTwo.length - 1]?.suits === 'diamonds' ? '♢'
-                        : playerTwo[playerTwo.length - 1]?.suits === 'hearts' ? '♡'
-                          : playerTwo[playerTwo.length - 1]?.suits === 'spades' ? '♤'
-                            : ''
-                  }
-                </div>
-                <div className={cls.card__icon}>{playerTwo[playerTwo.length - 1]?.name}</div>
-                <div className={cls.card__bottom}>
-                  {
-                    playerTwo[playerTwo.length - 1]?.suits === 'clubs' ? '♧'
-                      : playerTwo[playerTwo.length - 1]?.suits === 'diamonds' ? '♢'
-                        : playerTwo[playerTwo.length - 1]?.suits === 'hearts' ? '♡'
-                          : playerTwo[playerTwo.length - 1]?.suits === 'spades' ? '♤'
-                            : ''
-                  }
-                </div>
-              </div>
-            ) : playerTwo.length ? <img className={cls.illusion} src={card} alt='card' /> : <div className={cls.card} />}
-          </section>
+            )}
+          </span>
+          <div className={cls.player__card}>
+            <span className={cls.player__card__countRight}>{userTwo.length}</span>
+            <img src={card} alt='card' />
+            {userTwo.map(() => {
+              return <img className={cls.player__deckRight} src={card} alt='card' />
+            })}
+          </div>
+          <button onClick={() => step('two')}>Ваш ход</button>
+        </section> */}
         </section>
-        <section className={cls.fieldButtons}>
-          <div><button onClick={() => deck()}>Перемешать колоду</button></div>
+      <section className={cls.board}>
+        <section className={cls.cardsBlock}>
+          <CurrentDeckPlayerOne p1={playerOne} p2={playerTwo} setP1={setPlayerOne} setP2={setPlayerTwo} cmp1={comparisonOne} cmp2={comparisonTwo} u1={userOne} u2={userTwo} setU1={setUserOne} setU2={setUserTwo} />
+          <CurrentDeckPlayerTwo p1={playerOne} p2={playerTwo} setP1={setPlayerOne} setP2={setPlayerTwo} cmp1={comparisonOne} cmp2={comparisonTwo} u1={userOne} u2={userTwo} setU1={setUserOne} setU2={setUserTwo} />
         </section>
+      </section>
+      <section className={cls.fieldButtons}>
+        <div><button onClick={() => deck()}>Перемешать колоду</button></div>
+      </section>
       </main>
-      <footer>
-        <span>Разработано для Pari Match</span>
-      </footer>
-      <div className={modal ? `${cls.modal} ${cls.close}` : cls.modal}>
-        <div className={cls.modal__wrapper}>
-          <span>Победил - {userTwo.length === 0 ? 'Игрок 1' : 'Игрок 2'}</span>
-          <button onClick={() => setModal(false)}>+</button>
-        </div>
+    <footer>
+      <span>Разработано для Pari Match</span>
+    </footer>
+    <div className={modal ? `${cls.modal} ${cls.close}` : cls.modal}>
+      <div className={cls.modal__wrapper}>
+        <span>Победил - {userTwo.length === 0 ? 'Игрок 1' : 'Игрок 2'}</span>
+        <button onClick={() => setModal(false)}>+</button>
       </div>
     </div>
+    </div >
   );
 }
 

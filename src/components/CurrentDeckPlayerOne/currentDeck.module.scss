@@ -1,0 +1,9 @@
+@import '../../vars';
+
+.illusion {
+  @include illusion;
+}
+
+.card {
+  @include card;
+}
