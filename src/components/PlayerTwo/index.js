@@ -12,20 +12,20 @@ const PlayerTwo = ({
 }) => {
   return (
     <section className={cls.player}>
-      <span className={cls.player__userName}>
-        <h3>{p2}</h3>
+      <div className={cls.player__userName}>
+        <h3 title={p2}>{p2}</h3>
         {!closeI2 && (
           <div>
-            <input onChange={(e) => setP2(e.target.value)}></input>
+            <input onChange={(e) => setP2(e.target.value)} placeholder='Введите ваше имя' />
             <button onClick={() => setCloseI2(true)}>+</button>
           </div>
         )}
-      </span>
+      </div>
       <div className={cls.player__card}>
         <span className={cls.player__card__countRight}>{u2.length}</span>
         <img src={card} alt='card' />
-        {u2.map(() => {
-          return <img className={cls.player__deckRight} src={card} alt='card' />
+        {u2.map((_el, index) => {
+          return <img className={cls.player__deckRight} src={card} alt='card' key={index} />
         })}
       </div>
       <button onClick={() => step('two')}>Ваш ход</button>

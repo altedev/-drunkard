@@ -74,6 +74,21 @@ $colorButton: #161616;
   button {
     @include button;
   }
+  &__userName {
+    min-height: 120px;
+    @include display;
+    flex-direction: column;
+    margin-bottom: 15px;
+    h3 {
+      width: 135px;
+      overflow: hidden;
+    }
+    input {
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+    }
+  }
 }
 
 @mixin illusion {
